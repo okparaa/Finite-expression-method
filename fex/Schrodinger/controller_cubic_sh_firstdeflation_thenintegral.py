@@ -47,7 +47,7 @@ dim = args.dim
 integral_value = []
 
 for i in range(500):
-    x = (torch.rand(100000, args.dim).cuda()) * (args.right - args.left) + args.left
+    x = (torch.rand(10, args.dim).cuda()) * (args.right - args.left) + args.left
     x.requires_grad = True
     value = torch.mean(func.true_solution(x))
     integral_value.append(value.item())
