@@ -593,7 +593,7 @@ def get_reward(bs, actions, learnable_tree, tree_params, tree_optim):
             function_error = torch.nn.functional.mse_loss(func.LHS_pde(learnable_tree(x, bs_action), x, dim),
                                                           func.RHS_pde(x))
             loss = function_error * (mse ** (-1))  # + 1.0 * (integral - integral_true) ** 2
-            print('loss before: ', loss.item())
+            # print('loss before: ', loss.item())
             error_hist.append(loss.item())
             loss.backward()
             return loss
@@ -608,10 +608,10 @@ def get_reward(bs, actions, learnable_tree, tree_params, tree_optim):
         # integration = 1.0 * (integral - integral_true) ** 2
         regression_error = function_error * (mse ** (-1))
         # print('loss after: ', regression_error.item())
-        print('loss after ', ' pde error: {} '.format(function_error.item()))
+        # print('loss after ', ' pde error: {} '.format(function_error.item()))
         error_hist.append(regression_error.item())
 
-        print(error_hist, ' min: ', min(error_hist))
+        # print(error_hist, ' min: ', min(error_hist))
         regression_errors.append(min(error_hist))
         # regression_errors_bp.append(regression_error)
         count = 0
@@ -645,7 +645,7 @@ def best_error(best_action, learnable_tree):
     integration = (integral - integral_true) ** 2
     regression_error = function_error + 1.0 * integration
 
-    print('integration: {}  '.format(integration.item()), ' eigen: {} '.format(function_error.item()))
+    # print('integration: {}  '.format(integration.item()), ' eigen: {} '.format(function_error.item()))
 
     return regression_error
 
@@ -701,8 +701,8 @@ def train_controller(Controller, Controller_optim, trainable_tree, tree_params, 
 
         candidates.add_new(candidate(action=batch_min_action, expression=batch_best_formula, error=batch_smallest))
 
-        for candidate_ in candidates.candidates:
-            print('error:{} action:{} formula:{}'.format(candidate_.error.item(), [v.item() for v in candidate_.action], candidate_.expression))
+        # for candidate_ in candidates.candidates:
+        #     print('error:{} action:{} formula:{}'.format(candidate_.error.item(), [v.item() for v in candidate_.action], candidate_.expression))
 
         # moving average baseline
         if baseline is None:
@@ -743,15 +743,14 @@ def train_controller(Controller, Controller_optim, trainable_tree, tree_params, 
               'Reward {re:.4f} | {error:.8f} {formula}'.format(loss=loss.item(), base=baseline, act=binary_code,
                                                                re=(rewards).mean(), step=step, formula=best_formula,
                                                                error=smallest_error)
-        print('********************************************************************************************************')
-        print(log)
-        print('********************************************************************************************************')
+        # print('********************************************************************************************************')
+        # print(log)
+        # print('********************************************************************************************************')
         if (step + 1) % 1 == 0:
             logger.append([step + 1, loss.item(), baseline, rewards.mean(), smallest_error, best_formula])
 
     for candidate_ in candidates.candidates:
-        print('error:{} action:{} formula:{}'.format(candidate_.error.item(), [v.item() for v in candidate_.action],
-                                                     candidate_.expression))
+        # print('error:{} action:{} formula:{}'.format(candidate_.error.item(), [v.item() for v in candidate_.action], candidate_.expression))
         action_string = ''
         for v in candidate_.action:
             action_string += str(v.item()) + '-'
@@ -793,7 +792,7 @@ def train_controller(Controller, Controller_optim, trainable_tree, tree_params, 
                 logger.append([current_iter, 0, 0, 0, error.item(), formula])
 
             cosine_lr(tree_optim, 1e-2, current_iter, finetune)
-            print(suffix)
+            # print(suffix)
 
         numerators = []
         denominators = []
