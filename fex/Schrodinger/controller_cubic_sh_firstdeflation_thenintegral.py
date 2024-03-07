@@ -779,9 +779,11 @@ def train_controller(Controller, Controller_optim, trainable_tree, tree_params, 
         for current_iter in range(finetune):
             error = best_error(candidate_.action, trainable_tree)
             tree_optim.zero_grad()
-            error.backward()
+            if(hasattr(error, 'backward') and calleable(error, 'backward'):
+                error.backward()
 
-            tree_optim.step()
+            if(hasattr(tree_optim, 'step') and calleable(tree_optim, 'step'):
+                tree_optim.step()
 
             count = 0
             leaves_cnt = 0
