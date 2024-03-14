@@ -7,4 +7,4 @@ for i in range(2):
         gpu = 0
         subprocess.Popen([sys.executable,'/content/Finite-expression-method/fex/Schrodinger/controller_cubic_sh_firstdeflation_thenintegral.py', '--epoch', '1000', '--bs', '10', '--greedy', '0.1', '--gpu', '0', '--ckpt', 'Firstdeflat_thenintegral_epoch1k_Dim'+str(dim), '--tree', 'depth2_sub', '--random_step', '3', '--lr', '0.002','--dim', str(dim), '--base', '200000', '--left', '-1', '--right', '1', '--domainbs', '2000', '--intbs', '10000'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         print('running dim '+str(dim))
-        time.sleep(100)
+        time.sleep(5)
