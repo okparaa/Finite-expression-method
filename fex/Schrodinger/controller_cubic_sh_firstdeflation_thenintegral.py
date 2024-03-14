@@ -657,7 +657,7 @@ def train_controller(Controller, Controller_optim, trainable_tree, tree_params, 
     while os.path.isfile(file_name.format(file_idx)):
         file_idx += 1
     file_name = file_name.format(file_idx)
-    logger = Logger(file_name, title='')
+    logger = Logger(file_name, title='', resume=True)
     logger.set_names(['iteration', 'loss', 'baseline', 'error', 'formula', 'error'])
 
     model = Controller
