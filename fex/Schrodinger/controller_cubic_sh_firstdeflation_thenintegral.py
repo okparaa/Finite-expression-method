@@ -12,6 +12,9 @@ import function as func
 import argparse
 import random
 import math
+import logging
+
+logging.basicConfig(level=logging.INFO, filename='log.log', format="%(asctime)s :---- %(message)s")
 
 parser = argparse.ArgumentParser(description='NAS')
 
@@ -748,7 +751,7 @@ def train_controller(Controller, Controller_optim, trainable_tree, tree_params, 
         # print('********************************************************************************************************')
         if (step + 1) % 1 == 0:
             logger.append([step + 1, loss.item(), baseline, rewards.mean(), smallest_error, best_formula])
-        print('---------------------------------- step idx {} -------------------------------------'.format(step))
+        logging.info(f"Dim{args.dim} - step {step} in epoch")
 
     for candidate_ in candidates.candidates:
         # print('error:{} action:{} formula:{}'.format(candidate_.error.item(), [v.item() for v in candidate_.action], candidate_.expression))
