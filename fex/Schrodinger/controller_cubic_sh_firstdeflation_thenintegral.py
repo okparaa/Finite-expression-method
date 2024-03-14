@@ -14,7 +14,7 @@ import random
 import math
 import logging
 
-logging.basicConfig(level=logging.INFO, filename='log.log', format="%(asctime)s :---- %(message)s")
+logging.basicConfig(level=logging.INFO, filename='log.log', format="%(asctime)s %(levelname)s %(message)s")
 
 parser = argparse.ArgumentParser(description='NAS')
 
