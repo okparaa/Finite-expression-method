@@ -1,3 +1,6 @@
+import subprocess
+import time
+
 for i in range(2):
     for dim in [6, 12, 18, 24, 30]:
         gpu = 0
