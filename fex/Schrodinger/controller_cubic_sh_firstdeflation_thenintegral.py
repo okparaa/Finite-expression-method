@@ -14,7 +14,7 @@ import random
 import math
 import logging
 
-logging.basicConfig(level=logging.INFO, filename='log.log', format="%(asctime)s %(levelname)s %(message)s")
+logging.basicConfig(level=logging.INFO, filename='fexlog.log', format="%(asctime)s %(levelname)s %(message)s")
 
 parser = argparse.ArgumentParser(description='NAS')
 
@@ -33,6 +33,7 @@ parser.add_argument('--percentile', default=0.5, type=float)
 parser.add_argument('--base', default=100, type=int)
 parser.add_argument('--domainbs', default=1000, type=int)
 parser.add_argument('--intbs', default=1000, type=int)
+parser.add_argument('--num', default=0, type=int)
 args = parser.parse_args()
 
 os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu)
@@ -751,7 +752,7 @@ def train_controller(Controller, Controller_optim, trainable_tree, tree_params, 
         # print('********************************************************************************************************')
         if (step + 1) % 1 == 0:
             logger.append([step + 1, loss.item(), baseline, rewards.mean(), smallest_error, best_formula])
-        logging.info(f"Dim{args.dim} - step {step} in epoch")
+        logging.info(f"Dim{args.dim} loop{args.num}: \t step {step} in epoch")
 
     for candidate_ in candidates.candidates:
         # print('error:{} action:{} formula:{}'.format(candidate_.error.item(), [v.item() for v in candidate_.action], candidate_.expression))
